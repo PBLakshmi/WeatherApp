@@ -1,0 +1,70 @@
+<div class="container">
+  <div class="search-box">
+    <i class="bi bi-geo-alt-fill"></i>
+    <input
+      type="text"
+      placeholder="enter your location"
+      [(ngModel)]="searchTerm"
+    />
+    <button class="bx bxs-map" (click)="search()">
+      <i class="bi bi-search"></i>
+    </button>
+  </div>
+
+  <div *ngIf="Weather">
+    <h2>{{ Weather.location.name }}</h2>
+    <h1>
+      {{ Weather.data.values.temperature }}°C<img
+        src="../assets/images/high-temperature.png"
+        height="50px"
+        width="50px"
+        alt=""
+      />
+    </h1>
+    <p>
+      <img
+        src="../assets/images/humidity.png"
+        height="40px"
+        width="40px"
+        alt=""
+      />Humidity : {{ Weather.data.values.humidity }}°C
+    </p>
+    <p>
+      <img
+        src="../assets/images/windy.png"
+        height="40px"
+        width="40px"
+        alt=""
+      />WindSpeed: {{ Weather.data.values.windSpeed }}%
+    </p>
+    <p>
+      <img
+        src="../assets/images/raining.png"
+        height="40px"
+        width="40px"
+        alt=""
+      />Precipitation: {{ Weather.data.values.precipitationProbability }}
+    </p>
+  </div>
+
+  <div *ngIf="forecastData">
+    <h2>5-Days Forecast Data</h2>
+    <div class="card-group" *ngFor="let data of forecastData">
+      <div class="card">
+        <div class="card-body">
+          <h3 class="card-title">{{ data.time | date : "EEEE" }}</h3>
+          <h4>
+            <img
+              src="../assets/images/cloudy-day.png"
+              alt=""
+              height="40px"
+              width="40px"
+            />{{ getWeatherDescription(data.values.weatherCodeMax) }}
+          </h4>
+          <h4 class="card-text">Max: {{ data.values.temperatureMax }}°C</h4>
+          <h4 class="card-text">Min: {{ data.values.temperatureMin }}°C</h4>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
